@@ -1,70 +1,87 @@
-#include<stdio.h>
-int main()
+#include <stdio.h>
+
+int main ()
 {
     int n;
-    printf("Enter the size of array:");
+    int option;
+    printf("Enter the stack size:");
     scanf("%d",&n);
-    int a[n];
-    printf("Enter the elements:");
-    int i;
-    for (i=0; i<n; i++)
+    int stack[n];
+    int top=-1;
+    while(1)
     {
-        scanf("%d",&a[i]);
-    }
-    printf("The input array is:\n");
-    for(i=0; i<n; i++)
-    {
-        printf("%d\n",a[i]);
-    }
-    for(int i=0; i<n; i++)
-    {
-        for(int j=0; j<n; j++)
+        printf("\n\nType..\n1 to push\n2 to pop\n3 to check if the stack is Empty\n4 to check the stack is Full\n5 size\n6 Top\n0 to exit\n");
+        scanf("%d", &option);
+        if(option==1)
         {
-            if(a[j]>a[j+1])
+
+            if(top==n-1)
             {
-                int temp=a[j+1];
-                a[j+1]=a[j];
-                a[j]=temp;
+                printf("Overflow: ");
+            }
+            else
+            {
+                int push;
+                printf("Enter the value to push:");
+                scanf("%d",&push);
+                top++;
+                stack[top]=push;
+            }
+            for(int i=0; i<=top; i++)
+            {
+                printf("%d ",stack[i]);
             }
         }
-    }
-    printf("The sorted array is:\n");
-    for(i=0; i<n; i++)
-    {
-        printf("%d\n",a[i]);
-    }
-
-    int key;
-    printf("Enter the value to search:");
-    scanf("%d",&key);
-    int loc =-1;
-    int beg=0;
-    int end=n-1;
-
-    while(beg<=end)
-    {
-        int mid=(beg+end)/2;
-
-        if(key==a[mid])
+        else if(option==2)
         {
-            loc=mid;
-            printf("%d",loc);
-            break;
+            if(top==-1)
+            {
+                printf("Underflow: ");
+            }
+            else
+            {
+                stack[top]='\0';
+                top--;
+                for(int i=0; i<=top; i++)
+                {
+                    printf("%d ",stack[i]);
+                }
+            }
         }
-        else if(key<a[mid])
+        else if(option==3)
         {
-            end=mid-1;
+            if(top==-1)
+            {
+                printf("The stack is empty");
+            }
+            else
+            {
+                printf("The stack is not empty");
+            }
         }
-        else if(key>a[mid])
+        else if(option==4)
         {
-            beg=mid+1;
+            if(top>=n-1)
+            {
+                printf("The stack is full");
+            }
+            else
+            {
+                printf("Stack is not full");
+            }
         }
-
+        else if(option==5){
+            int size;
+            size=top+1;
+            printf("%d",size);
+        }
+        else if(option==0)
+        {
+            return ;
+        }
+        else
+        {
+            printf("Invalid input.\n");
+        }
     }
-    if(loc==-1)
-    {
-        printf("Value Not found in the array");
-    }
-
-    return 0;
 }
